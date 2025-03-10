@@ -1,12 +1,14 @@
-
+import 'package:adminpanel/Models/category.dart';
 import 'package:adminpanel/Screens/Category/components/category_add.dart';
 import 'package:adminpanel/Screens/Category/components/category_list.dart';
 import 'package:adminpanel/Screens/DashBoard/components/Profile.dart';
+import 'package:adminpanel/Screens/DashBoard/components/order_form.dart';
+import 'package:adminpanel/Screens/SubCategory/components/sub_category_add.dart';
+import 'package:adminpanel/Screens/SubCategory/components/sub_category_list.dart';
 import 'package:flutter/material.dart';
 
-
-class categoryScreen extends StatelessWidget{
-  const categoryScreen({Key?key}): super(key: key);
+class SubCategoryScreen extends StatelessWidget{
+  const SubCategoryScreen({Key?key}): super(key: key);
   
   @override
   Widget build(BuildContext context)
@@ -55,7 +57,7 @@ class categoryScreen extends StatelessWidget{
                       ),
                      const Profile(),
                     ],
-    
+
                   ),
                    const SizedBox(
                   height: 25,
@@ -64,29 +66,27 @@ class categoryScreen extends StatelessWidget{
                   width: 1293,
                   height: 700,
                   color: const Color.fromARGB(255, 230, 105, 3).withOpacity(0.1),//Color.fromARGB(192, 250, 230, 213),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:EdgeInsets.only(top: 10,left: 10,right: 50),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                            Text("Categories",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
-                      ),
-                      AddButton(context),
-                     
-                           ],   
-                          ),
-                         ),
-                         SizedBox(
-                          height: 35,
-                         ),
-                      CategoryList()
-                      ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:EdgeInsets.only(top: 10,left: 10,right: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                          Text("Sub Categories",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
                     ),
+                    AddButton(context),
+                   
+                         ],   
+                        ),
+                       ),
+                       SizedBox(
+                        height: 35,
+                       ),
+                    SubCategoryList()
+                    ],
                   ),
                  ),
                 ]
@@ -97,7 +97,7 @@ class categoryScreen extends StatelessWidget{
 Widget AddButton(context){
   return ElevatedButton(
     onPressed: (){
-     showAddCategoryForm(context);
+     showsubcatAddform(context);
   },
    style: ElevatedButton.styleFrom(
     backgroundColor: Colors.white, // Background color of the button

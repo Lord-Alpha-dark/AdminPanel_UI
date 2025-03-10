@@ -1,17 +1,13 @@
-
-import 'package:adminpanel/Screens/Category/components/category_add.dart';
-import 'package:adminpanel/Screens/Category/components/category_list.dart';
 import 'package:adminpanel/Screens/DashBoard/components/Profile.dart';
+import 'package:adminpanel/Screens/Coupons/components/coupon_list.dart';
+import 'package:adminpanel/Screens/Coupons/components/coupon_add.dart';
 import 'package:flutter/material.dart';
 
-
-class categoryScreen extends StatelessWidget{
-  const categoryScreen({Key?key}): super(key: key);
-  
+class CouponScreen extends StatelessWidget {
+  const CouponScreen({super.key});
   @override
-  Widget build(BuildContext context)
-  {
-    return Column(
+  Widget build(BuildContext context) {
+    return  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                  const SizedBox(
@@ -26,7 +22,7 @@ class categoryScreen extends StatelessWidget{
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color.fromARGB(165, 199, 196, 196)
+                            color: const Color.fromARGB(165, 199, 196, 196)
                           ),
                           child: const TextField(
                             cursorHeight: 22,
@@ -55,7 +51,7 @@ class categoryScreen extends StatelessWidget{
                       ),
                      const Profile(),
                     ],
-    
+
                   ),
                    const SizedBox(
                   height: 25,
@@ -64,29 +60,27 @@ class categoryScreen extends StatelessWidget{
                   width: 1293,
                   height: 700,
                   color: const Color.fromARGB(255, 230, 105, 3).withOpacity(0.1),//Color.fromARGB(192, 250, 230, 213),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:EdgeInsets.only(top: 10,left: 10,right: 50),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                            Text("Categories",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
-                      ),
-                      AddButton(context),
-                     
-                           ],   
-                          ),
-                         ),
-                         SizedBox(
-                          height: 35,
-                         ),
-                      CategoryList()
-                      ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:const EdgeInsets.only(top: 10,left: 10,right: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                          const Text("Coupons",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
                     ),
+                    AddButton(context),
+                   
+                         ],   
+                        ),
+                       ),
+                       const SizedBox(
+                        height: 35,
+                       ),
+                        const CouponList(),
+                    ],
                   ),
                  ),
                 ]
@@ -97,25 +91,24 @@ class categoryScreen extends StatelessWidget{
 Widget AddButton(context){
   return ElevatedButton(
     onPressed: (){
-     showAddCategoryForm(context);
+    showCouponAddform(context);
   },
    style: ElevatedButton.styleFrom(
     backgroundColor: Colors.white, // Background color of the button
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10), // Border radius
-      side: BorderSide(
+      side: const BorderSide(
         color: Color.fromARGB(255, 230, 105, 3), // Border color
         width: 2.5, // Border thickness
       )
     ),
    ),
-   child: Row(
+   child: const Row(
      children: [
 
        Text("Add",style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),),
-    
      Padding(
-       padding: const EdgeInsets.only(bottom: 5),
+       padding:  EdgeInsets.only(bottom: 5),
        child: Text("   +",style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w600),),
      ),
    ],

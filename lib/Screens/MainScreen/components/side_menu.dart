@@ -15,8 +15,8 @@ class SideMenu extends StatelessWidget{
       Container(
         height: MediaQuery.of(context).size.height,
         width: 240,
-        color: Colors.black54,
-        child:Consumer<mainScreenProvider>(builder: (context, menuProvider, child) {
+        color: Color.fromARGB(167, 24, 23, 23),
+        child:Consumer<MainScreenProvider>(builder: (context, menuProvider, child) {
           return  ListView(
           padding: const EdgeInsets.all(7),
           children:[

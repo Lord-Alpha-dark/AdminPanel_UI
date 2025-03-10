@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
 
-class CustomDropdown extends StatelessWidget {
- final String initialtext;
+class CustomDropdown<T> extends StatelessWidget {
+ final T? initialvalue;
  final String? hintText;
- final List<String> list;
- final void Function(String?)? onchanged;
- final String? Function(String?) validator;
-
+ final List<T> list;
+ final void Function(T?)? onchanged;
+ final String? Function(T?) validator;
+ final String Function(T) displayItem;
   const CustomDropdown({Key? key,
-  required this.initialtext,
+   this.initialvalue,
   required this.hintText,
   required this.list,
   required this.onchanged,
-  required this.validator}): super(key : key);
+  required this.validator,
+  required this.displayItem}): super(key : key);
 
  @override
  Widget build(BuildContext context){
   return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: DropdownButtonFormField<String>(
+    padding: const EdgeInsets.all(4.0),
+    child: DropdownButtonFormField<T>(
       
       decoration: InputDecoration(
         labelText: hintText,
          fillColor: Colors.white, // Background color
        filled: true, // Ensures the background color is applied
-        labelStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w600),
+        labelStyle: const TextStyle(color: Colors.black54,fontWeight: FontWeight.w600),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
          
-     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color.fromARGB(255, 230, 105, 3), width: 2.5), // Border color when focused
+     focusedBorder:const OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.black54, width: 2), // Border color when focused
     ),
+     enabledBorder: OutlineInputBorder(
+                           borderRadius: BorderRadius.circular(4.0),
+                              borderSide: const BorderSide(color: Colors.black54, width: 2),
+                            ), 
       ),
-      value: initialtext,
-      items: list.map((String value){
-       return DropdownMenuItem<String>(
+      value: initialvalue,
+      items: list.map((T value){
+       return DropdownMenuItem<T>(
         value: value,
-        child: Text(value,style: TextStyle(fontSize: 14,color: Colors.black54,fontWeight: FontWeight.w700),));
+        child: Text(displayItem(value),style:const TextStyle(fontSize: 14,color: Colors.black54,fontWeight: FontWeight.w700),));
       }).toList(),
        onChanged: onchanged,
        validator: validator,
-       
-  
+       autovalidateMode: AutovalidateMode.onUserInteraction,
+       elevation: 0,
+
        ),
   );
  }

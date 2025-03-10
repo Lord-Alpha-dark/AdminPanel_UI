@@ -1,5 +1,6 @@
 import 'package:adminpanel/Models/order_summary_info.dart';
 import 'package:adminpanel/Screens/DashBoard/components/barchart.dart';
+import 'package:adminpanel/Screens/DashBoard/components/order_list_view.dart';
 import 'package:adminpanel/Screens/DashBoard/order_summary_card.dart';
 import 'package:adminpanel/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +74,8 @@ class orderScreen extends StatelessWidget{
               SizedBox(
                 width: 170,
                 height: 67,
-                child: CustomDropdown(
-                  initialtext: "All Orders",
+                child: CustomDropdown<String>(
+                  initialvalue: "All Orders",
                    hintText: "Filter order by Status",
                     list: ["All Orders","Pending","Processing","Shipped"],
                    onchanged: (newValue){
@@ -89,10 +90,12 @@ class orderScreen extends StatelessWidget{
                         return 'Please select status';
                       }
                       return null;
-                    }, ),
+                    },
+                    displayItem: (val)=> val, ),
               )
             ],
-          )       
+          ) ,
+          OrderList()      
              
           ],
         ),

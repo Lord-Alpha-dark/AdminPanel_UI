@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget{
         body: Row(
             children: [
              const SideMenu(),
-            Consumer<mainScreenProvider>(
+            Consumer<MainScreenProvider>(
               builder: (context, provider, child) {
                 return Expanded(
                   flex: 5,

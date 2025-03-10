@@ -3,6 +3,7 @@ UserId? userId;
 String? orderDate;
 String? orderStatus;
 List<Items>? items;
+String? sId;
 double? totalPrice;
 ShippingAddress? shippingAddress;
 String? paymentMethod;
@@ -46,6 +47,7 @@ Order.fromJson(Map<String,dynamic> json)
   orderTotal=json['orderTotal']!=null?new OrderTotal.fromJson(json['orderTotal']):null;
   trackingUrl=json['trackingUrl'];
   iV = json['__v'];
+   sId = json['_id'];
 }
 
 Map<String,dynamic> toJson(){
@@ -77,6 +79,7 @@ Map<String,dynamic> toJson(){
   }
   data['trackingUrl']=this.trackingUrl;
   data['__v'] = this.iV;
+  
   return data;
 }
 

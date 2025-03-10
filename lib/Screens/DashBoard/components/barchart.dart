@@ -9,7 +9,7 @@ class barChart extends StatelessWidget{
   
  Widget build(BuildContext context)
  {
-  return Consumer<mainScreenProvider>(builder: (context,provider,child){
+  return Consumer<MainScreenProvider>(builder: (context,provider,child){
       if (provider.dates.isEmpty || provider.views.isEmpty) {
           return const Center(
             child: Text(
