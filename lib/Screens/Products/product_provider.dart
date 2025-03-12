@@ -1,4 +1,5 @@
 import 'package:adminpanel/Models/Brands.dart';
+import 'package:adminpanel/Models/Product.dart';
 import 'package:adminpanel/Models/category.dart';
 import 'package:adminpanel/Models/sub_category.dart';
 import 'package:file_picker/file_picker.dart';
@@ -9,7 +10,7 @@ class ProductProvider extends ChangeNotifier {
   String? imagePath2;
   String? imagePath3;
   String? imagePath4;
-
+   final productFormKey=GlobalKey<FormState>();
  TextEditingController name_controller=TextEditingController();
  TextEditingController description_controller=TextEditingController();
  TextEditingController price_controller=TextEditingController();
@@ -17,6 +18,7 @@ class ProductProvider extends ChangeNotifier {
 
  List<String> _selectedVariants=[];
  List<String> get selectedVariants=>_selectedVariants;
+ List<Product> localproducts=[];
 
  void addVariant(String val)
  {

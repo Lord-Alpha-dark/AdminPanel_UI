@@ -1,7 +1,7 @@
 
 class Brand{
   String? name;
-  SubCategoryId? subcategoryId;
+  subCategory? subcategoryId;
   String? createdAt;
   String? updatedAt;
   String? sId;
@@ -13,7 +13,7 @@ class Brand{
      sId=json['_id'];
      name=json['name'];
      subcategoryId=json['subCategory']!=null?
-      SubCategoryId.fromJson(json['subCategory']): null;
+      subCategory.fromJson(json['subCategory']): null;
       createdAt=json['createdAt'];
       updatedAt=json['updatedAt'];
    }
@@ -32,13 +32,13 @@ class Brand{
    }
 }
 
-class SubCategoryId{
+class subCategory{
   String? name;
   String? sId;
   
-   SubCategoryId({this.sId, this.name});
+   subCategory({this.sId, this.name});
 
-   SubCategoryId.fromJson(Map<String,dynamic> json)
+   subCategory.fromJson(Map<String,dynamic> json)
    {
      sId = json['_id'];
     name = json['name'];

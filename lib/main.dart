@@ -40,11 +40,52 @@ class MainApp extends StatelessWidget {
        title: 'Flutter Admin Panel',
        initialRoute: '/',
        getPages: [
-        GetPage(name: '/', page:()=> MainScreen()),
+        GetPage(name: '/', page:()=> SplashScreen()),
         ],
-         unknownRoute: GetPage(name: '/notFound', page:()=> MainScreen()),
+         unknownRoute: GetPage(name: '/notFound', page:()=> SplashScreen()),
     );
-    
-    
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+  print("SplashScreen: _loadData() called"); // Debug print
+
+  final catProvider = Provider.of<CatProvider>(context, listen: false);
+  final subCatProvider = Provider.of<SubCategoryProvider>(context, listen: false);
+  final brandProvider = Provider.of<BrandProvider>(context, listen: false);
+
+  print("Fetching categories...");
+  await catProvider.allCategories();
+
+  print("Fetching subcategories...");
+  await subCatProvider.AllSubCategories();
+  
+  print("fetching brands");
+  await brandProvider.AllBrands();
+  
+  if (mounted) {
+    print("Navigation to MainScreen");
+    Get.offAll(()=>MainScreen());
+  }
+}
+
+
+   @override
+   Widget build(BuildContext context) {
+     return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
+    );
   }
 }

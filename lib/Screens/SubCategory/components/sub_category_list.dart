@@ -3,6 +3,7 @@ import 'package:adminpanel/Screens/Category/cat_provider.dart';
 import 'package:adminpanel/Screens/SubCategory/sub_category_provider.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SubCategoryList extends StatelessWidget{
@@ -69,7 +70,7 @@ class SubCategoryList extends StatelessWidget{
                
               },()
               {
-            
+                provider.deleteSubCategory(provider.localSubCategories[index].sId!);
               }))
                ) ;
               },
@@ -92,7 +93,7 @@ DataRow customDataRow(SubCategory subcategoryInfo, int index,Function edit,Funct
         Text(subcategoryInfo.categoryId?.name ?? ' ')
        ),
        DataCell(
-        Text(subcategoryInfo.createdAt ?? '')),
+        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(subcategoryInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
             edit();

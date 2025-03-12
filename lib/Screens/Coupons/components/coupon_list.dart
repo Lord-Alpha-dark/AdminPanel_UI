@@ -87,7 +87,7 @@ DataRow customDataRow(Coupon couponInfo, int index,Function edit,Function delete
         Text(couponInfo.status ?? ' ')
        ),
        DataCell(
-        Text(couponInfo.discountAmount.toString() ?? '')),
+        Text(couponInfo.discountAmount.toString())),
          DataCell(
         Text(couponInfo.endDate ?? ' ')
        ),

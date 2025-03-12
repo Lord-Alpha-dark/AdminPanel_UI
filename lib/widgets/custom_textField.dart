@@ -32,6 +32,7 @@ class CustomTextField extends StatelessWidget {
                                 borderSide: const BorderSide(color: Colors.black54, width: 2),
                               ), // Orange border when not focused
                             ),
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             keyboardType: TextInputType.text,
                             validator: validator,
                             onSaved: onsave,

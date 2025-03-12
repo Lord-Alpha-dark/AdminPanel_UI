@@ -1,12 +1,8 @@
-import 'package:adminpanel/Models/Order.dart';
 import 'package:adminpanel/Models/category.dart';
 import 'package:adminpanel/Screens/Category/cat_provider.dart';
-import 'package:adminpanel/Screens/DashBoard/components/order_form.dart';
-import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 
@@ -107,10 +103,10 @@ DataRow customDataRow(category categoryInfo, int index,Function edit,Function de
           ],
         )),
        DataCell(
-        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(categoryInfo.createdAt!)) ?? '')),
+        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(categoryInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
-            if (edit != null) edit();
+             edit();
           },
           icon:const Icon(
             Icons.edit,

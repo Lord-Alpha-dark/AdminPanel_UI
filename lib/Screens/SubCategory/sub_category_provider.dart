@@ -17,10 +17,6 @@ class SubCategoryProvider extends ChangeNotifier{
    String? get  subcatname=>_subCategoryname;
    
    category? selectedcategory;
-   
-   SubCategoryProvider(){
-     AllSubCategories();
-   }
 
   Future<void> AllSubCategories()async{
    
@@ -54,8 +50,10 @@ class SubCategoryProvider extends ChangeNotifier{
         };
         
         final response=await service.postItems(endpointsURL: '/subCategory/create', data: subcat,ismultipart: false);
+       
         if(response!=null && response["success"]==true){
            SnackBarHelper.showSuccessSnackBar("Subcategory added successfully");
+           
            localSubCategories.add(SubCategory.fromJson(response['data']));
            notifyListeners(); 
         }
@@ -67,6 +65,24 @@ class SubCategoryProvider extends ChangeNotifier{
       SnackBarHelper.showErrorSnackBar("Failed to add subcategory:$error");
     }
   }
+
+Future<void> deleteSubCategory(String id)async{
+   try {
+     final response= await service.deleteItems(endpointsURL: "/subCategory/", id: id);
+     if(response!=null && response['success']==true)
+     {
+        localSubCategories.removeWhere((SubCategory)=>SubCategory.sId==id);
+        SnackBarHelper.showSuccessSnackBar("Sub Category deleted successfully");
+        notifyListeners();
+     }
+      else if(response!=null && response['success']==false)
+        {
+          SnackBarHelper.showErrorSnackBar("Failed to delete Sub Category");
+        }
+   } catch (error) {
+      SnackBarHelper.showErrorSnackBar("Failed to delete category:$error");
+   }
+}
 
   void clear(){
  selectedcategory=null;

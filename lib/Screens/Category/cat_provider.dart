@@ -1,20 +1,15 @@
 import 'package:adminpanel/Models/category.dart';
 import 'package:adminpanel/Services/http_services.dart';
-import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:adminpanel/widgets/snackbar_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 
 Logger logger=Logger();
 class CatProvider extends ChangeNotifier{
    
-   CatProvider(){
-    allCategories();
-   }
   httpServices service=httpServices();
   String _categoryName="";
   String get CatName=> _categoryName;

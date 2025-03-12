@@ -38,7 +38,8 @@ class httpServices{
          var response= await Dio().post(full_Url,
          data: data,
          options: Options(contentType: 
-         ismultipart?"multipart/form-data":"application/json")
+         ismultipart?"multipart/form-data":"application/json",
+         responseType: ResponseType.json)
          );
 
          if(response.statusCode==200 || response.statusCode==201)

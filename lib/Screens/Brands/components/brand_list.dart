@@ -1,6 +1,8 @@
 import 'package:adminpanel/Models/Brands.dart';
+import 'package:adminpanel/Screens/Brands/brand_provider.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BrandList extends StatelessWidget{
@@ -36,8 +38,13 @@ class BrandList extends StatelessWidget{
             const SizedBox(
               height: 10,
             ),
-            Consumer<DataProvider>(
-              builder: (context, dataprovider, child) {
+            Consumer<BrandProvider>(
+              builder: (context, provider, child) {
+                if(provider.localBrands.isEmpty)
+                {
+                  return const Center(
+                    child: CircularProgressIndicator());
+                }
                 return DataTable(
               columnSpacing: 167,
               columns: const [
@@ -58,12 +65,12 @@ class BrandList extends StatelessWidget{
                 ),
     
               ],
-              rows: List.generate(dataprovider.brands.length, (index) => customDataRow(dataprovider.brands[index],index+1,(){
+              rows: List.generate(provider.localBrands.length, (index) => customDataRow(provider.localBrands[index],index+1,(){
               
                
               },()
               {
-            
+               provider.deleteBrand(provider.localBrands[index].sId!);
               }))
                ) ;
               },
@@ -86,7 +93,7 @@ DataRow customDataRow(Brand brandInfo, int index,Function edit,Function delete)
         Text(brandInfo.subcategoryId?.name ?? ' ')
        ),
        DataCell(
-        Text(brandInfo.createdAt ?? '')),
+        Text(DateFormat("yyyy-MM-dd").format(DateTime.parse(brandInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
             edit();
