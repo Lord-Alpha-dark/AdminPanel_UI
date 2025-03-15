@@ -4,16 +4,12 @@ import 'package:adminpanel/Models/Brands.dart';
 import 'package:adminpanel/Models/VariantType.dart';
 import 'package:adminpanel/Models/category.dart';
 import 'package:adminpanel/Models/sub_category.dart';
-import 'package:adminpanel/Screens/Brands/brand_provider.dart';
 import 'package:adminpanel/Screens/Category/cat_provider.dart';
 import 'package:adminpanel/Screens/Category/components/category_imagecard.dart';
 import 'package:adminpanel/Screens/MainScreen/main_screen_provider.dart';
 import 'package:adminpanel/Screens/Products/components/variantDialog.dart';
 import 'package:adminpanel/Screens/Products/product_provider.dart';
-import 'package:adminpanel/Screens/Products/product_screen.dart';
-import 'package:adminpanel/Screens/SubCategory/sub_category_provider.dart';
 import 'package:adminpanel/Screens/VariantType/variantType_provider.dart';
-import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:adminpanel/widgets/custom_dropdown.dart';
 import 'package:adminpanel/widgets/custom_textField.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +24,6 @@ class ProductAdd extends StatelessWidget {
      final provider2=Provider.of<MainScreenProvider>(context,listen: false);
      final provider3=Provider.of<CatProvider>(context,listen: false);
      final provider4=Provider.of<VariantTypeProvider>(context,listen: false);
-     final provider5=Provider.of<SubCategoryProvider>(context,listen: false);
-     final provider6=Provider.of<BrandProvider>(context,listen: false);
     return Form(
       key: provider.productFormKey,
       child: Container(
@@ -39,14 +33,16 @@ class ProductAdd extends StatelessWidget {
           child:
                SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Column(
+                   child:  Consumer<ProductProvider>(builder: (context,provider,child){ 
+                    return
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [                      
                         const Padding(
                           padding:  EdgeInsets.only(top: 20, left: 500,bottom: 30),
                           child: Text("ADD PRODUCT",style:  TextStyle(color: Colors.black54,fontWeight: FontWeight.w700,fontSize: 34)),
                         ),
-                         
+                       
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -142,7 +138,7 @@ class ProductAdd extends StatelessWidget {
                                   hintText: "Category",
                                    list:provider3.localCategories ,
                                     onchanged: (value){
-                                      provider.selectedcategory=value;
+                                      provider.setSelectedCategory(value, context);
                                      },
                                      validator: (value){
                                       if(value==null){
@@ -160,8 +156,9 @@ class ProductAdd extends StatelessWidget {
                                 width: 240,
                                
                                 child: CustomDropdown(
+                                  
                                   hintText: "Sub-Category",
-                                   list:provider5.localSubCategories,
+                                   list:provider.selectedSubcat(context),
                                     onchanged: (value){
                                       provider.selectedsubCategory=value;
                                      },
@@ -182,7 +179,7 @@ class ProductAdd extends StatelessWidget {
                                
                                 child: CustomDropdown(
                                   hintText: "Brand",
-                                   list:provider6.localBrands,
+                                   list:provider.selectedBrands(provider.selectedsubCategory, context),
                                     onchanged: (value){
                                       provider.selectedbrand=value;
                                      },
@@ -235,7 +232,7 @@ class ProductAdd extends StatelessWidget {
                                       width: 2.0,
                                     ),
                                   ),
-      
+                    
                                   onPressed: (){
                                     showVariantDialog(context);
                                 },
@@ -269,7 +266,6 @@ class ProductAdd extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 21,top: 20),
                               child: SizedBox(
                                 width: 394,
-                              
                                 child: CustomTextField(
                                   controller: provider.quantity_controller,
                                   labelText: "Quantity",
@@ -303,6 +299,7 @@ class ProductAdd extends StatelessWidget {
                                    ),
                                ),
                             onPressed:(){
+                              provider.clearImagePath();
                              provider2.navigatetoScreen("Products", context);
                             } ,
                               child: const Text("cancel",style: TextStyle(fontSize: 17,color: Colors.black54),) 
@@ -324,6 +321,7 @@ class ProductAdd extends StatelessWidget {
                             onPressed:()async{
                               if(provider.productFormKey.currentState!.validate())
                               {
+                                provider.createProduct();
                                provider2.navigatetoScreen("Products", context);
                               }
                             } ,
@@ -334,9 +332,10 @@ class ProductAdd extends StatelessWidget {
                           ),
                         )   
                       ],
-                    ),
+                    );
+                   }
+                   )
                   ),
-        
       ),
     );
   }

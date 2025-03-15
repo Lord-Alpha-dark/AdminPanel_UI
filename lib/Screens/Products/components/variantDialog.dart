@@ -13,8 +13,8 @@ void showVariantDialog(BuildContext context) {
       return AlertDialog(
         title: Text('Select Variants'),
         content: SingleChildScrollView(
-          child: Column( 
-            children:provider.variants.map((element) {
+          child: Column(             
+            children:provider2.SelectedVariant(provider2.selectedVariantType, context).map((element) {
               return CheckboxListTile(
                title: Text(element.name ?? ''),
                checkColor: Colors.white,
@@ -24,11 +24,11 @@ void showVariantDialog(BuildContext context) {
                {
                 if(value==true)
                 {
-                  provider2.addVariant(element.name!);
+                  provider2.selectedVariants.add(element.name!);
                 }
                 else
                 {
-                  provider2.removeVariant(element.name!);
+                  provider2.selectedVariants.remove(element.name!);
                 }
                }
               );
@@ -47,6 +47,7 @@ void showVariantDialog(BuildContext context) {
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
+            
           },
           child: Text('OK'),
         ),

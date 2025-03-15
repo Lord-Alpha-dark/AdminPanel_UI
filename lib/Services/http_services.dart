@@ -25,6 +25,7 @@ class httpServices{
         return {'success': false, 'message': 'Failed to load data'};
        }
     }
+    
     catch(error){
       logger.e("Error fetching Items: $error");
       return {'success': false, 'message': error.toString()};
@@ -97,7 +98,7 @@ class httpServices{
          return response.data;
        }
        else{
-        logger.w("Failed to delete data. Status: ${response.statusCode}");
+        logger.w("Failed to delete data. Status: ${response.data}");
         return null;
        }
    }

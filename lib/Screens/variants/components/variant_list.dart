@@ -1,7 +1,9 @@
 import 'package:adminpanel/Models/Brands.dart';
 import 'package:adminpanel/Models/variants.dart';
+import 'package:adminpanel/Screens/variants/variant_provider.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class VariantList extends StatelessWidget{
@@ -36,8 +38,14 @@ class VariantList extends StatelessWidget{
             const SizedBox(
               height: 10,
             ),
-            Consumer<DataProvider>(
-              builder: (context, dataprovider, child) {
+            Consumer<VariantProvider>(
+              builder: (context, provider, child) {
+            if(provider.localvariants==null)
+             {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+             }
                 return DataTable(
               columnSpacing: 167,
               columns: const [
@@ -58,12 +66,12 @@ class VariantList extends StatelessWidget{
                 ),
     
               ],
-              rows: List.generate(dataprovider.variants.length, (index) => customDataRow(dataprovider.variants[index],index+1,(){
+              rows: List.generate(provider.localvariants.length, (index) => customDataRow(provider.localvariants[index],index+1,(){
               
                
               },()
               {
-            
+                provider.DeleteVariant(provider.localvariants[index].sId!);
               }))
                ) ;
               },
@@ -86,7 +94,7 @@ DataRow customDataRow(Variant variantInfo, int index,Function edit,Function dele
         Text(variantInfo.variantTypeId?.name ?? ' ')
        ),
        DataCell(
-        Text(variantInfo.createdAt ?? '')),
+        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(variantInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
             edit();

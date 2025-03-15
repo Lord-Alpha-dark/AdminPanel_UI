@@ -1,6 +1,10 @@
 import 'package:adminpanel/Models/Brands.dart';
+import 'package:adminpanel/Models/VariantType.dart';
+import 'package:adminpanel/Screens/VariantType/variantType_provider.dart';
+import 'package:adminpanel/Screens/variants/variant_provider.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class VariantTypeList extends StatelessWidget{
@@ -35,8 +39,13 @@ class VariantTypeList extends StatelessWidget{
             const SizedBox(
               height: 10,
             ),
-            Consumer<DataProvider>(
-              builder: (context, dataprovider, child) {
+            Consumer<VariantTypeProvider>(
+              builder: (context, provider, child) {
+                if(provider.LocalVariantType.isEmpty)
+                {
+                  return const Center(
+                    child: CircularProgressIndicator());
+                }
                 return DataTable(
               columnSpacing: 167,
               columns: const [
@@ -55,12 +64,12 @@ class VariantTypeList extends StatelessWidget{
                 ),
     
               ],
-              rows: List.generate(dataprovider.brands.length, (index) => customDataRow(dataprovider.brands[index],index+1,(){
+              rows: List.generate(provider.LocalVariantType.length, (index) => customDataRow(provider.LocalVariantType[index],index+1,(){
               
                
               },()
               {
-            
+                provider.DeleteVariantType(provider.LocalVariantType[index]);
               }))
                ) ;
               },
@@ -72,18 +81,15 @@ class VariantTypeList extends StatelessWidget{
   }
 }
 
-DataRow customDataRow(Brand brandInfo, int index,Function edit,Function delete)
+DataRow customDataRow(VariantType variantTypeInfo, int index,Function edit,Function delete)
 {
   return DataRow(
     cells: [
       DataCell(
-        Text(brandInfo.name ?? ' ')
-       ),
-        DataCell(
-        Text(brandInfo.subcategoryId?.name ?? ' ')
+        Text(variantTypeInfo.name ?? ' ')
        ),
        DataCell(
-        Text(brandInfo.createdAt ?? '')),
+        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(variantTypeInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
             edit();

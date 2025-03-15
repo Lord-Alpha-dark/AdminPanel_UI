@@ -42,7 +42,7 @@ class CategoryAddForm extends StatelessWidget{
                   Padding(
                     padding: const EdgeInsets.all(19),
                     child: TextFormField(
-          
+                        
                               controller: provider.controller,
                               maxLines: 1,
                                decoration: InputDecoration(

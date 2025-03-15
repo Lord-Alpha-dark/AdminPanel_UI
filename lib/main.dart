@@ -65,16 +65,20 @@ class _SplashScreenState extends State<SplashScreen> {
   final catProvider = Provider.of<CatProvider>(context, listen: false);
   final subCatProvider = Provider.of<SubCategoryProvider>(context, listen: false);
   final brandProvider = Provider.of<BrandProvider>(context, listen: false);
+  final variantTypeprovider=Provider.of<VariantTypeProvider>(context, listen: false);
+  final variantprovider=Provider.of<VariantProvider>(context, listen: false);
+  final couponProvider=Provider.of<CouponProvider>(context, listen: false);
 
-  print("Fetching categories...");
+  
   await catProvider.allCategories();
 
-  print("Fetching subcategories...");
   await subCatProvider.AllSubCategories();
-  
-  print("fetching brands");
+
   await brandProvider.AllBrands();
-  
+
+  await variantTypeprovider.AllVariantType();
+  await variantprovider.AllVariants();  
+
   if (mounted) {
     print("Navigation to MainScreen");
     Get.offAll(()=>MainScreen());
