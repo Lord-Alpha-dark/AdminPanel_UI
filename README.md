@@ -8,12 +8,24 @@ This project integrates a **Node.js** backend with a **MongoDB** database, demon
 
 ## Features
 
--**User Authentication:** Sign up and log in using email and password, managed through the backend API.
--**Profile Management:** Administrator can update personal information and preferences.
--**Category & Sub-Category Management:** Create, edit or remove categories and sub-categories to organize inventory effectively.
--**Brand Management:** Add, update, and manage brands associated with products.
--**Variant Type Management:** Define variant types (e.g., size, color) for product customization.
--**Variant Management:** Add, update, and manage variants (e.g., size, color) for products.
--**Product Management:** Add, update, or delete products with details like name, price, categories ,sub-categories, variants, and images.
+## Features
 
+- **User Authentication:** Sign up and log in using email and password, managed through the backend API.
 
+- **Profile Management:** Administrators can update personal information and preferences.
+
+- **Category & Sub-Category Management:** Create, edit, or remove categories and sub-categories to organize inventory effectively.
+
+- **Brand Management:** Add, update, and manage brands associated with sub-categories.
+
+- **Variant Type Management:** Define variant types (e.g., size, color) for product customization.
+
+- **Variant Management:** Add, update, and manage variants (e.g., Red, Blue, Orange for color variant type) for respective variant types.
+
+- **Product Management:** Add, update, or delete products with details like name, price, categories, sub-categories, variants, and images that will be listed on the user app.
+
+- **Order Management:** View and manage orders placed by users, including order status, shipping address, payment details, and update order status.
+
+- **Coupon Management:** Add, update, and manage coupons for discounts and promotions, including details like code, discount amount, expiration date, and applicable products.
+
+- **Responsive UI:** Clean, intuitive interface built with Flutter’s Material Design for Windows.
