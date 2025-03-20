@@ -68,6 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final variantTypeprovider=Provider.of<VariantTypeProvider>(context, listen: false);
   final variantprovider=Provider.of<VariantProvider>(context, listen: false);
   final couponProvider=Provider.of<CouponProvider>(context, listen: false);
+  final productprovider= Provider.of<ProductProvider>(context, listen: false);
 
   
   await catProvider.allCategories();
@@ -78,6 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   await variantTypeprovider.AllVariantType();
   await variantprovider.AllVariants();  
+  await productprovider.AllProducts();
 
   if (mounted) {
     print("Navigation to MainScreen");

@@ -6,7 +6,6 @@ import 'package:adminpanel/Models/sub_category.dart';
 import 'package:adminpanel/Models/variants.dart';
 import 'package:adminpanel/Screens/Brands/brand_provider.dart';
 import 'package:adminpanel/Screens/SubCategory/sub_category_provider.dart';
-import 'package:adminpanel/Screens/VariantType/variantType_provider.dart';
 import 'package:adminpanel/Screens/variants/variant_provider.dart';
 import 'package:adminpanel/Services/http_services.dart';
 import 'package:adminpanel/widgets/snackbar_helper.dart';
@@ -40,6 +39,7 @@ class ProductProvider extends ChangeNotifier {
  TextEditingController quantity_controller=TextEditingController();
 
  List<String> selectedVariants=[];
+ List<String> selectedVariantids=[];
  List<Variant> localvariants=[];
  List<Product> localproducts=[];
  category? selectedcategory;
@@ -50,8 +50,21 @@ class ProductProvider extends ChangeNotifier {
 
  void setSelectedCategory(category? value, BuildContext context) {
     selectedcategory = value;
-    selectedsubCategory = null; // Reset subcategory when category changes
+    // Reset subcategory when category changes
     notifyListeners(); // Trigger rebuild
+  }
+
+  void setSelectedSubCategory(SubCategory? value, BuildContext context) {
+    selectedsubCategory = value;
+    
+    notifyListeners(); // Trigger rebuild
+  }
+
+  void setSelectedVariantType(VariantType? value,BuildContext coontext)
+  {
+     selectedVariantType=value;
+     selectedVariants.clear();
+     notifyListeners();
   }
  List<SubCategory> selectedSubcat(BuildContext context)
  {
@@ -60,18 +73,22 @@ class ProductProvider extends ChangeNotifier {
   {
    List<SubCategory> subcategories=[];
     subcategories= provider.localSubCategories.where((element) => element.categoryId!.sId==selectedcategory!.sId).toList();
+   
     return subcategories;
   }
     return [];
  }
 
- List<Brand> selectedBrands(SubCategory? selectedsubCategory,BuildContext context)
+ List<Brand> selectedBrands(BuildContext context)
  {
   final provider=Provider.of<BrandProvider>(context,listen: false);
   if(selectedsubCategory!=null)
   {
-    return provider.localBrands.where((element) => element.subcategoryId==selectedsubCategory!.sId).toList();
+
+    return provider.localBrands.where((element) => element.subcategoryId!.sId==selectedsubCategory!.sId).toList();
+    
   }
+  
     return [];
  }
 
@@ -83,7 +100,7 @@ class ProductProvider extends ChangeNotifier {
     return [];
   }
 
-  return provider.localvariants.where((element) => selectedVariantType?.sId==element.variantTypeId).toList();
+  return provider.localvariants.where((element) => selectedVariantType.sId==element.variantTypeId!.sId).toList();
  }
 
  Future<void> AllProducts()async{
@@ -106,22 +123,24 @@ class ProductProvider extends ChangeNotifier {
  }
 
  Future<void> createProduct() async {
-
+print("selectedVariantids before sending: $selectedVariantids"); // Debug log
         Map<String,dynamic> data={
           "name": name_controller.text,
           "description": description_controller.text,
-          "price": price_controller.text,
-          "quantity":quantity_controller.text,
+          "price": double.tryParse(price_controller.text),
+          "quantity":int.tryParse(quantity_controller.text),
           "Category": selectedcategory?.sId,
           "subCategory": selectedsubCategory?.sId,
           "Brand": selectedbrand?.sId,
-          "variantType": AllSelectedVariant(),
+          "variantType": selectedVariantType?.sId,
+          "variant": selectedVariantids,
         }; 
         
         FormData formData=await createFormData(data: data);
+        print("formData: $formData"); // Debug log
     try {
       final response =await service.postItems(endpointsURL: "/Product/create", data: formData, ismultipart: true);
-
+      
       if(response!=null && response['success']==true)
       {
         Product newProduct=Product.fromJson(response['data']);
@@ -141,10 +160,11 @@ class ProductProvider extends ChangeNotifier {
 
    
    Future<FormData> createFormData({required Map<String,dynamic> data}) async {
+    
        multipartfile1=await createMultifile(result: result1);
-        multipartfile2=await createMultifile(result: result1);
-        multipartfile3=await createMultifile(result: result1);
-       multipartfile4=await createMultifile(result: result1);
+        multipartfile2=await createMultifile(result: result2);
+        multipartfile3=await createMultifile(result: result3);
+       multipartfile4=await createMultifile(result: result4);
 
        data['image1']=multipartfile1;
        data['image2']=multipartfile2;
@@ -173,6 +193,26 @@ class ProductProvider extends ChangeNotifier {
       }
       return multipartfile;
   }
+
+ Future<void> deleteProduct(String id) async{
+  try{
+     final response= await service.deleteItems(endpointsURL: "/Product/delete/", id: id);
+     if(response!=null &&response['success']==true)
+     {
+        localproducts.removeWhere((element)=> element.sId==id!);
+        notifyListeners();
+        SnackBarHelper.showSuccessSnackBar("Product deleted successfully");
+     }
+     else if(response!=null && response['success']==false)
+     {
+      SnackBarHelper.showErrorSnackBar("Failed to delete product:${response['message']}");
+     }
+  }
+  catch(error)
+  {
+    SnackBarHelper.showErrorSnackBar("Failed to delete product:$error");
+  }
+ }
 
 
  String AllSelectedVariant()
@@ -237,6 +277,8 @@ void clearImagePath(){
     selectedsubCategory=null;
     selectedbrand=null;
     selectedVariantType=null;
+    selectedVariants.clear();
+    selectedVariantids.clear();
     notifyListeners();
   }
 }

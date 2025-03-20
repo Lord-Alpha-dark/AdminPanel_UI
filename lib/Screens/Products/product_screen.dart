@@ -64,27 +64,29 @@ class ProductScreen extends StatelessWidget{
                   width: 1293,
                   height: 700,
                   color: const Color.fromARGB(255, 230, 105, 3).withOpacity(0.1),//Color.fromARGB(192, 250, 230, 213),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:const EdgeInsets.only(top: 10,left: 10,right: 50),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                          const Text("Products",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding:const EdgeInsets.only(top: 10,left: 10,right: 50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                            const Text("Products",style: TextStyle(fontSize: 33,fontWeight: FontWeight.w700,color: Colors.black54),
+                      ),
+                      AddButton(context),
+                     
+                           ],   
+                          ),
+                         ),
+                         const SizedBox(
+                          height: 35,
+                         ),
+                      const ProductList(),
+                      ],
                     ),
-                    AddButton(context),
-                   
-                         ],   
-                        ),
-                       ),
-                       const SizedBox(
-                        height: 35,
-                       ),
-                    const ProductList(),
-                    ],
                   ),
                  ),
                 ]

@@ -49,7 +49,9 @@ class Product{
     proVariantTypeId = json['variantType'] != null
         ? ProRef.fromJson(json['variantType'])
         : null;
-    proVariantId = json['variant'].cast<String>();
+   proVariantId = (json['variant'] != null) 
+    ? List<String>.from(json['variant'])
+    : [];
     if (json['images'] != null) {
       images = <Image>[];
       json['images'].forEach((v) {
@@ -93,6 +95,8 @@ class Product{
     }
   );
   }
+  data['createdAt']=createdAt;
+  data['updatedAt']=updatedAt;
 return data;
 }
 }

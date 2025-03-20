@@ -1,7 +1,8 @@
 import 'package:adminpanel/Models/Brands.dart';
 import 'package:adminpanel/Models/Product.dart';
-import 'package:adminpanel/core/data/data_provider.dart';
+import 'package:adminpanel/Screens/Products/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ProductList extends StatelessWidget{
@@ -36,8 +37,14 @@ class ProductList extends StatelessWidget{
             const SizedBox(
               height: 10,
             ),
-            Consumer<DataProvider>(
-              builder: (context, dataprovider, child) {
+            Consumer<ProductProvider>(
+              builder: (context, provider, child) {
+                if(provider.localproducts.isEmpty)
+                {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
                 return DataTable(
               columnSpacing: 110,
               columns: const [
@@ -65,12 +72,12 @@ class ProductList extends StatelessWidget{
                 ),
     
               ],
-              rows: List.generate(dataprovider.products.length, (index) => customDataRow(dataprovider.products[index],index+1,(){
+              rows: List.generate(provider.localproducts.length, (index) => customDataRow(provider.localproducts[index],index+1,(){
               
                
               },()
               {
-            
+            provider.deleteProduct(provider.localproducts[index].sId!);
               }))
                ) ;
               },
@@ -89,9 +96,6 @@ DataRow customDataRow(Product productInfo, int index,Function edit,Function dele
       DataCell(
         Text(productInfo.name ?? ' ')
        ),
-       DataCell(
-        Text(productInfo.proBrandId?.name ?? ' ')
-       ),
         DataCell(
         Text(productInfo.proSubCategoryId?.name ?? ' ')
        ),
@@ -102,7 +106,7 @@ DataRow customDataRow(Product productInfo, int index,Function edit,Function dele
         Text(productInfo.price.toString() ?? ' ')
        ),
        DataCell(
-        Text(productInfo.createdAt ?? '')),
+        Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(productInfo.createdAt!)))),
       DataCell(IconButton(
           onPressed: () {
             edit();

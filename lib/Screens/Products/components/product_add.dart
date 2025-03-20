@@ -12,6 +12,7 @@ import 'package:adminpanel/Screens/Products/product_provider.dart';
 import 'package:adminpanel/Screens/VariantType/variantType_provider.dart';
 import 'package:adminpanel/widgets/custom_dropdown.dart';
 import 'package:adminpanel/widgets/custom_textField.dart';
+import 'package:adminpanel/widgets/snackbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -160,7 +161,7 @@ class ProductAdd extends StatelessWidget {
                                   hintText: "Sub-Category",
                                    list:provider.selectedSubcat(context),
                                     onchanged: (value){
-                                      provider.selectedsubCategory=value;
+                                      provider.setSelectedSubCategory(value, context);
                                      },
                                      validator: (value){
                                       if(value==null){
@@ -179,7 +180,7 @@ class ProductAdd extends StatelessWidget {
                                
                                 child: CustomDropdown(
                                   hintText: "Brand",
-                                   list:provider.selectedBrands(provider.selectedsubCategory, context),
+                                   list:provider.selectedBrands( context),
                                     onchanged: (value){
                                       provider.selectedbrand=value;
                                      },
@@ -206,6 +207,7 @@ class ProductAdd extends StatelessWidget {
                                   hintText: "Variant Type",
                                    list: provider4.LocalVariantType,
                                   onchanged: (value){
+                                    provider.setSelectedVariantType(value, context);
                                   },
                                  validator: (value){
                                   if(value==null){
@@ -232,12 +234,12 @@ class ProductAdd extends StatelessWidget {
                                       width: 2.0,
                                     ),
                                   ),
-                    
+          
                                   onPressed: (){
                                     showVariantDialog(context);
                                 },
                                  child:
-                                 Text(provider.selectedVariants.length==0?"Select variants":provider.AllSelectedVariant(),style: TextStyle(color: Colors.black54,fontSize: 17,fontWeight: FontWeight.w600),))
+                                 Text(provider.selectedVariants.length==0?"Select variants":provider.AllSelectedVariant(),style:const TextStyle(color: Colors.black54,fontSize: 17,fontWeight: FontWeight.w600),))
                               ),
                             ),
                           ],
@@ -321,7 +323,12 @@ class ProductAdd extends StatelessWidget {
                             onPressed:()async{
                               if(provider.productFormKey.currentState!.validate())
                               {
-                                provider.createProduct();
+                                if(provider.result1==null || provider.result2==null || provider.result3==null || provider.result4==null)
+                                {
+                                  SnackBarHelper.showErrorSnackBar("Please select images");
+                                  return;
+                                }
+                                await provider.createProduct();
                                provider2.navigatetoScreen("Products", context);
                               }
                             } ,
