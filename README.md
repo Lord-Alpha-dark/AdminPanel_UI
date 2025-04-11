@@ -31,35 +31,35 @@ This project integrates a **Node.js** backend with a **MongoDB** database, demon
 ### DashBoard
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/DashBoard.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/DashBoard.png" alt="Home Screen" />
 </div>
 
 ### Category Screen
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/Category screen.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/Category screen.png" alt="Home Screen" />
 </div>
 
 ### Sub Category Screen
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/subcategory screen.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/subcategory screen.png" alt="Home Screen" />
 </div>
 
 ### Add Product
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/Add Product.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/Add Product.png" alt="Home Screen"/>
 </div>
 
 ### Add variant
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/Add variant.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/Add variant.png" alt="Home Screen" />
 </div>
 
 ### Authentication
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="screenshots/auth.png" alt="Home Screen" width="300"/>
+  <img src="screenshots/auth.png" alt="Home Screen" />
 </div>
