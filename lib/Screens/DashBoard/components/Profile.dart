@@ -1,3 +1,4 @@
+import 'package:adminpanel/Screens/Authentication/Profile/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget{
@@ -33,7 +34,7 @@ class Profile extends StatelessWidget{
                                 width: 13,
                               ),
                               IconButton(onPressed: (){
-                                print("pressed");
+                                showSignupForm(context);
                               }, 
                               icon: const Icon(Icons.keyboard_arrow_down))
                             ],

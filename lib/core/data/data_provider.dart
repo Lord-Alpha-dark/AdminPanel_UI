@@ -1,5 +1,5 @@
 import 'package:adminpanel/Models/Brands.dart';
-import 'package:adminpanel/Models/Order.dart';
+import 'package:adminpanel/Models/Order/Order.dart';
 import 'package:adminpanel/Models/Product.dart';
 import 'package:adminpanel/Models/VariantType.dart';
 import 'package:adminpanel/Models/coupon.dart';

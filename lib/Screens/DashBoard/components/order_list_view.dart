@@ -1,4 +1,4 @@
-import 'package:adminpanel/Models/Order.dart';
+import 'package:adminpanel/Models/Order/Order.dart';
 import 'package:adminpanel/Screens/DashBoard/components/order_form.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:flutter/material.dart';

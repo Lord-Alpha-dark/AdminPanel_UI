@@ -1,4 +1,4 @@
-import 'package:adminpanel/Models/Order.dart';
+import 'package:adminpanel/Models/Order/Order.dart';
 import 'package:adminpanel/Screens/DashBoard/components/action_button.dart';
 import 'package:adminpanel/core/data/data_provider.dart';
 import 'package:adminpanel/widgets/custom_dropdown.dart';

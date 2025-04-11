@@ -7,7 +7,7 @@ import 'package:logger/logger.dart';
 class httpServices{
   
   final logger=Logger();
-  final String base_URL="http://localhost:3000";
+  final String base_URL="https://admindashboard-backend-gzfl.onrender.com";
 
   Future<Map<String,dynamic>> getItems({required String endpointsURL}) async{
     final String full_Url=base_URL+endpointsURL;
